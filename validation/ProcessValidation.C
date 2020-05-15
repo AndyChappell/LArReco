@@ -91,7 +91,25 @@ void PlotSingleCompleteness(const std::string& interaction)
     legend.SetFillStyle(0);
     legend.Draw();
     
-    c.SetLogy();
+    c.Print(filename.c_str());
+}
+
+void PlotSingleEfficiency(const std::string& interaction)
+{
+    gStyle->SetOptStat(0);
+    const std::string str(interaction + "_MUON_HitsEfficiency");
+    TH1F* hist = (TH1F*)gDirectory->Get(str.c_str());
+    hist->SetLineColor(kBlack);
+
+    TCanvas c("c", "c", 1024, 768);
+    hist->Draw();
+    const std::string filename(interaction + "_MUON_HitsEfficiency.pdf");
+    
+    TLegend legend(0.15, 0.75, 0.35, 0.85);
+    legend.AddEntry(hist, "Efficiency", "l");
+    legend.SetFillStyle(0);
+    legend.Draw();
+    
     c.Print(filename.c_str());
 }
 
@@ -163,7 +181,7 @@ void Format(InteractionToHistogramMap& map, const bool isLog = false)
 }
 
 // Yes, global variables, but it's much more convenient when running interactively
-InteractionToHistogramMap mapI2P, mapI2C;
+InteractionToHistogramMap mapI2P, mapI2C, mapI2E;
 void MergeKeys()
 {
     gStyle->SetOptStat(0);
@@ -172,7 +190,7 @@ void MergeKeys()
     std::string reProtons("(P\\_)*");
     std::string rePrimaries("(PIPLUS|PIMINUS|PIZERO|PHOTON)?\\_?");
     std::string reParticle("(MUON|ELECTRON|PIPLUS|PIMINUS|PHOTON1|PHOTON2|PHOTON3|PHOTON4|PHOTON5|PROTON1|PROTON2|PROTON3|PROTON4|PROTON5)?\\_?");
-    std::string reMetrics("(Purity|Completeness)\\b");
+    std::string reMetrics("(Purity|Completeness|HitsEfficiency)\\b");
     std::string reStr(reInteraction + reProtons + rePrimaries + reParticle + reMetrics);
     TPRegexp re(reStr.c_str());
 
@@ -200,8 +218,10 @@ void MergeKeys()
                 "_" + particle;
             if (metric == "Purity")
                 AddHistogramToMap(mapI2P, name, interactionKey);
-            else
+            else if (metric == "Completeness")
                 AddHistogramToMap(mapI2C, name, interactionKey);
+            else
+                AddHistogramToMap(mapI2E, name, interactionKey);
         }
         else if (name.Contains("Purity") || name.Contains("Completeness"))
         {
@@ -211,7 +231,7 @@ void MergeKeys()
     }
 }
 
-void PlotMerge(InteractionToHistogramMap& map, const std::string& type, const bool isLog = false)
+void PlotMerge(InteractionToHistogramMap& map, const std::string& type, const bool isLog = false, const bool isEfficiency = false)
 {
     Format(map);
     std::map<std::string, TCanvas*> canvases;
@@ -234,16 +254,32 @@ void PlotMerge(InteractionToHistogramMap& map, const std::string& type, const bo
         {   // Create new plot
             TCanvas* canvas = new TCanvas(interaction.c_str(), interaction.c_str(), 1600, 900);
             canvases.emplace(interaction, canvas);
-            TLegend* legend(new TLegend(0.15, 0.65, 0.4, 0.88));
+            TLegend* legend(nullptr);
+            if (!isEfficiency)
+            {
+                legend = new TLegend(0.15, 0.65, 0.4, 0.88);
+            }
+            else
+            {
+                canvas->SetRightMargin(0.15);
+                legend = new TLegend(0.85, 0.65, 1.1, 0.88);
+            }
             legend->SetFillStyle(0);
             legend->SetBorderSize(0);
             legend->SetTextSize(0.03);
             legend->AddEntry(value, particle.c_str(), "l");
             legends.emplace(interaction, legend);
             if (isLog)
-            {   // Don't set lower limit of zero, or log scale won't work
+            {
                 canvas->cd();
                 gPad->SetLogy();
+            }
+            if (isEfficiency)
+            {
+                canvas->cd();
+                TAxis* axis = value->GetXaxis();
+                axis->SetRangeUser(axis->GetBinCenter(1), axis->GetBinUpEdge(axis->GetNbins()));
+                gPad->SetLogx();
             }
             value->Draw("hist");
             legend->Draw();
@@ -271,6 +307,7 @@ void PlotCumulative(const bool isLog = false)
     Accumulate(mapI2P);
     PlotMerge(mapI2C, "Completeness", isLog);
     PlotMerge(mapI2P, "Purity", isLog);
+    PlotMerge(mapI2E, "HitsEfficiency", isLog, true);
 }
 
 void Plot(const bool isLog = false)
@@ -278,5 +315,6 @@ void Plot(const bool isLog = false)
     // ATTN: Using global map variables - if running, run BEFORE PlotCumulative
     PlotMerge(mapI2C, "Completeness", isLog);
     PlotMerge(mapI2P, "Purity", isLog);
+    PlotMerge(mapI2E, "HitsEfficiency", isLog, true);
 }
 
