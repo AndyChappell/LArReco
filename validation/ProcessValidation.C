@@ -132,7 +132,9 @@ void AddHistogramToMap(InteractionToHistogramMap& map, const TString& name, cons
     {
         TH1F* hist = static_cast<TH1F*>(gDirectory->Get(name));
         if (hist->GetEntries() > 0)
+        {
             map.emplace(key, hist);
+        }
     }
 }
 
@@ -182,7 +184,7 @@ void Format(InteractionToHistogramMap& map, const bool isLog = false)
 
 // Yes, global variables, but it's much more convenient when running interactively
 InteractionToHistogramMap mapI2P, mapI2C, mapI2E;
-void MergeKeys()
+void MergeKeys(const bool isInclusive = false)
 {
     gStyle->SetOptStat(0);
     TIter next(gDirectory->GetList());
@@ -213,15 +215,17 @@ void MergeKeys()
             }
             if (primary == "PIPLUS" || primary == "PIMINUS")
                 primary = "PIC";
-            std::string interactionKey = interaction +
-                (primary.empty() ? "" : "_" + primary) +
-                "_" + particle;
-            if (metric == "Purity")
-                AddHistogramToMap(mapI2P, name, interactionKey);
-            else if (metric == "Completeness")
-                AddHistogramToMap(mapI2C, name, interactionKey);
+            std::string key;
+            if (!isInclusive)
+                key = interaction + (primary.empty() ? "" : "_" + primary) + "_" + particle;
             else
-                AddHistogramToMap(mapI2E, name, interactionKey);
+                key = "All_" + particle;
+            if (metric == "Purity")
+                AddHistogramToMap(mapI2P, name, key);
+            else if (metric == "Completeness")
+                AddHistogramToMap(mapI2C, name, key);
+            else
+                AddHistogramToMap(mapI2E, name, key);
         }
         else if (name.Contains("Purity") || name.Contains("Completeness"))
         {
@@ -274,15 +278,34 @@ void PlotMerge(InteractionToHistogramMap& map, const std::string& type, const bo
                 canvas->cd();
                 gPad->SetLogy();
             }
-            if (isEfficiency)
-            {
-                canvas->cd();
-                TAxis* axis = value->GetXaxis();
-                axis->SetRangeUser(axis->GetBinCenter(1), axis->GetBinUpEdge(axis->GetNbins()));
-                gPad->SetLogx();
-            }
             value->Draw("hist");
             legend->Draw();
+        }
+    }
+
+    if (isEfficiency)
+    {
+        float lower = std::numeric_limits<float>::max();
+        float upper = -std::numeric_limits<float>::max();
+        for (const auto [key, value] : map)
+        {
+            TAxis* axis = value->GetXaxis();
+            float thisUpper = axis->GetBinUpEdge(axis->GetNbins());
+            float thisLower = axis->GetBinCenter(1);
+            if (thisUpper > upper)
+                upper = thisUpper;
+            if (thisLower < lower)
+                lower = thisLower;
+        }
+        for (const auto [key, value] : map)
+        {
+            TAxis* axis = value->GetXaxis();
+            axis->SetRangeUser(lower, upper);
+        }
+        for (const auto [key, canvas] : canvases)
+        {
+            canvas->cd();
+            gPad->SetLogx();
         }
     }
     
