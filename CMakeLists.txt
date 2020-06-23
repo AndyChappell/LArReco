@@ -12,7 +12,7 @@ project(LArReco)
 # project version
 set(${PROJECT_NAME}_VERSION_MAJOR 03)
 set(${PROJECT_NAME}_VERSION_MINOR 16)
-set(${PROJECT_NAME}_VERSION_PATCH 00)
+set(${PROJECT_NAME}_VERSION_PATCH 02)
 set(${PROJECT_NAME}_VERSION "${${PROJECT_NAME}_VERSION_MAJOR}.${${PROJECT_NAME}_VERSION_MINOR}.${${PROJECT_NAME}_VERSION_PATCH}")
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
@@ -23,7 +23,7 @@ include(PandoraCMakeSettings)
 include_directories(include)
 
 find_package(PandoraSDK 03.03.00 REQUIRED)
-find_package(LArContent 03.16.00 REQUIRED)
+find_package(LArContent 03.16.02 REQUIRED)
 
 foreach(package PandoraSDK LArContent)
     if(${package}_FOUND)
@@ -34,14 +34,14 @@ foreach(package PandoraSDK LArContent)
 endforeach()
 
 if(PANDORA_MONITORING)
-    find_package(PandoraMonitoring 03.04.00 REQUIRED)
+    find_package(PandoraMonitoring 03.04.03 REQUIRED)
     include_directories(${PandoraMonitoring_INCLUDE_DIRS})
     link_libraries(${PandoraMonitoring_LIBRARIES})
     add_definitions(${PandoraMonitoring_DEFINITIONS})
     add_definitions("-DMONITORING")
 
     list(APPEND CMAKE_MODULE_PATH "$ENV{ROOTSYS}/etc/cmake/")
-    find_package(ROOT 5.26.00 REQUIRED COMPONENTS Eve Geom RGL EG)
+    find_package(ROOT 6.18.04 REQUIRED COMPONENTS Eve Geom RGL EG)
 endif()
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
