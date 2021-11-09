@@ -6,7 +6,7 @@
 
     <!-- ALGORITHM SETTINGS -->
     <algorithm type = "LArEventReading">
-        <LArMCParticleVersion>1</LArMCParticleVersion>
+        <LArMCParticleVersion>2</LArMCParticleVersion>
     </algorithm>
     <algorithm type = "LArPreProcessing">
         <OutputCaloHitListNameU>CaloHitListU</OutputCaloHitListNameU>
@@ -15,10 +15,10 @@
         <FilteredCaloHitListName>CaloHitList2D</FilteredCaloHitListName>
         <CurrentCaloHitListReplacement>CaloHitList2D</CurrentCaloHitListReplacement>
     </algorithm>
-    <algorithm type = "LArVisualMonitoring">
+    <!--algorithm type = "LArVisualMonitoring">
         <CaloHitListNames>CaloHitListU CaloHitListV CaloHitListW</CaloHitListNames>
         <ShowDetector>true</ShowDetector>
-    </algorithm>
+    </algorithm-->
 
     <algorithm type = "LArMaster">
         <CRSettingsFile>PandoraSettings_Cosmic_DUNEFD.xml</CRSettingsFile>
@@ -54,9 +54,59 @@
         <OutputTree>Validation</OutputTree>
         <OutputFile>Validation.root</OutputFile>
     </algorithm>
+    
+    <!--algorithm type = "LArMCParticleMonitoring">
+        <CaloHitListName>CaloHitList2D</CaloHitListName>
+        <MCParticleListName>Input</MCParticleListName>
+        <MinHitsForDisplay>0</MinHitsForDisplay>
+    </algorithm-->
 
-    <algorithm type = "LArVisualMonitoring">
+    <algorithm type = "LArHierarchyValidation">
+        <ValidateEvent>true</ValidateEvent>
+        <WriteTree>true</WriteTree>
+        <FileName>hierarchy_validation_event.root</FileName>
+        <TreeName>events</TreeName>
+        <FoldDynamic>true</FoldDynamic>
+    </algorithm>
+
+    <algorithm type = "LArHierarchyValidation">
+        <ValidateMC>true</ValidateMC>
+        <WriteTree>true</WriteTree>
+        <FileName>hierarchy_validation_mc.root</FileName>
+        <TreeName>mc</TreeName>
+        <FoldDynamic>true</FoldDynamic>
+    </algorithm>
+
+    <!--algorithm type = "LArHierarchyMonitoring">
+        <VisualizeMC>true</VisualizeMC>
+        <VisualizeDistinct>true</VisualizeDistinct>
+        <CollectionOnly>true</CollectionOnly>
+        <FoldDynamic>false</FoldDynamic>
+    </algorithm>
+
+    <algorithm type = "LArHierarchyMonitoring">
+        <VisualizeMC>true</VisualizeMC>
+        <VisualizeDistinct>true</VisualizeDistinct>
+        <CollectionOnly>true</CollectionOnly>
+        <PerformMatching>true</PerformMatching>
+    </algorithm-->
+
+    <!--algorithm type = "LArHierarchyMonitoring">
+        <VisualizeMC>true</VisualizeMC>
+        <VisualizeProcess>true</VisualizeProcess>
+        <CollectionOnly>true</CollectionOnly>
+    </algorithm-->
+
+    <!--algorithm type = "LArHierarchyMonitoring">
+        <VisualizeReco>true</VisualizeReco>
+    </algorithm-->
+
+    <!--algorithm type = "LArHierarchyMonitoring">
+        <PerformMatching>true</PerformMatching>
+    </algorithm-->
+
+    <!--algorithm type = "LArVisualMonitoring">
         <ShowCurrentPfos>true</ShowCurrentPfos>
         <ShowDetector>true</ShowDetector>
-    </algorithm>
+    </algorithm-->
 </pandora>
