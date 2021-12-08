@@ -582,6 +582,13 @@
             <tool type = "LArBranchAssociatedPfos"/>
         </PfoRelationTools>
     </algorithm>
+
+    <algorithm type = "LArTierPruning">
+        <PfoListNames>TrackParticles3D ShowerParticles3D</PfoListNames>
+        <Cluster3DListNames>TrackClusters3D ShowerClusters3D</Cluster3DListNames>
+        <Cluster2DListNames>ClustersU ClustersV ClustersW</Cluster2DListNames>
+    </algorithm>
+
     <algorithm type = "LArNeutrinoDaughterVertices">
         <NeutrinoPfoListName>NeutrinoParticles3D</NeutrinoPfoListName>
         <OutputVertexListName>DaughterVertices3D</OutputVertexListName>
