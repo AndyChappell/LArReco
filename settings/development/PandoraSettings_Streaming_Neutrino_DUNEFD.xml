@@ -582,13 +582,8 @@
             <tool type = "LArBranchAssociatedPfos"/>
         </PfoRelationTools>
     </algorithm>
-
-    <algorithm type = "LArVisualMonitoring">
-        <ShowCurrentPfos>true</ShowCurrentPfos>
-        <ShowDetector>true</ShowDetector>
-    </algorithm>
     
-    <!-- Identify clusters not in PFOs, put in a new list then zero mode the track/shower ID -->
+    <!-- Identify clusters not in PFOs, and rerun on those clusters without streaming -->
     
     <algorithm type = "LArLeftoverCluster">
         <ClusterListNames>TrackClustersU TrackClustersV TrackClustersW</ClusterListNames>
@@ -598,11 +593,6 @@
     <algorithm type = "LArLeftoverCluster">
         <ClusterListNames>ShowerClustersU ShowerClustersV ShowerClustersW</ClusterListNames>
         <OutputClusterListNames>ClustersU ClustersV ClustersW</OutputClusterListNames>
-    </algorithm>
-
-    <algorithm type = "LArVisualMonitoring">
-        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
-        <ShowDetector>true</ShowDetector>
     </algorithm>
 
     <algorithm type = "LArCutClusterCharacterisation">
@@ -617,13 +607,6 @@
         <PathLengthRatioCut>1.012</PathLengthRatioCut>
         <ShowerWidthRatioCut>0.2</ShowerWidthRatioCut>
     </algorithm>
-    <!--algorithm type = "LArCandidateVertexCreation">
-        <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
-        <OutputVertexListName>CandidateVertices3D</OutputVertexListName>
-        <ReplaceCurrentVertexList>true</ReplaceCurrentVertexList>
-        <EnableCrossingCandidates>false</EnableCrossingCandidates>
-        <ReducedCandidates>true</ReducedCandidates>
-    </algorithm-->
 
     <!-- ThreeDTrackAlgorithms -->
     <algorithm type = "LArThreeDTransverseTracks">
@@ -667,11 +650,6 @@
         <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
     </algorithm>
     
-    <algorithm type = "LArVisualMonitoring">
-        <PfoListNames>ReTrackParticles3D</PfoListNames>
-        <ShowDetector>true</ShowDetector>
-    </algorithm>
-
     <!-- ThreeDShowerAlgorithms -->
     <algorithm type = "LArCutPfoCharacterisation">
         <TrackPfoListName>ReTrackParticles3D</TrackPfoListName>
@@ -1090,16 +1068,24 @@
             </algorithm>
         </MopUpAlgorithms>
     </algorithm>
+    
+    <algorithm type = "LArHierarchyDissolution">
+        <PfoListNames>TrackParticles3D ShowerParticles3D ReTrackParticles3D ReShowerParticles3D</PfoListNames>
+    </algorithm>
 
-    <algorithm type = "LArVisualMonitoring">
-        <PfoListNames>ReTrackParticles3D ReShowerParticles3D</PfoListNames>
-        <ShowDetector>true</ShowDetector>
+    <!-- Need to destroy the neutrino before rebuilding the hierarchy -->
+    <algorithm type = "LArListDeletion">
+        <PfoListNames>NeutrinoParticles3D</PfoListNames>
     </algorithm>
 
     <!-- Neutrino hierarchy building -->
+    <algorithm type = "LArNeutrinoCreation">
+       <InputVertexListName>NeutrinoVertices3D</InputVertexListName>
+       <NeutrinoPfoListName>NeutrinoParticles3D</NeutrinoPfoListName>
+    </algorithm>
     <algorithm type = "LArNeutrinoHierarchy">
         <NeutrinoPfoListName>NeutrinoParticles3D</NeutrinoPfoListName>
-        <DaughterPfoListNames>ReTrackParticles3D ReShowerParticles3D</DaughterPfoListNames>
+        <DaughterPfoListNames>TrackParticles3D ShowerParticles3D ReTrackParticles3D ReShowerParticles3D</DaughterPfoListNames>
         <DisplayPfoInfoMap>false</DisplayPfoInfoMap>
         <PfoRelationTools>
             <tool type = "LArVertexAssociatedPfos"/>
@@ -1107,18 +1093,6 @@
             <tool type = "LArBranchAssociatedPfos"/>
         </PfoRelationTools>
     </algorithm>
-
-
-
-
-
-
-
-
-
-
-
-
 
     <algorithm type = "LArNeutrinoDaughterVertices">
         <NeutrinoPfoListName>NeutrinoParticles3D</NeutrinoPfoListName>
