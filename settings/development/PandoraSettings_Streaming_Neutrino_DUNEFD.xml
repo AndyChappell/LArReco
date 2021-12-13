@@ -595,6 +595,11 @@
         <OutputClusterListNames>ClustersU ClustersV ClustersW</OutputClusterListNames>
     </algorithm>
 
+    <algorithm type = "LArVisualMonitoring">
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
+        <ShowDetector>true</ShowDetector>
+    </algorithm>
+
     <algorithm type = "LArCutClusterCharacterisation">
         <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
         <ZeroMode>true</ZeroMode>
@@ -1068,7 +1073,7 @@
             </algorithm>
         </MopUpAlgorithms>
     </algorithm>
-    
+
     <algorithm type = "LArHierarchyDissolution">
         <PfoListNames>TrackParticles3D ShowerParticles3D ReTrackParticles3D ReShowerParticles3D</PfoListNames>
     </algorithm>
