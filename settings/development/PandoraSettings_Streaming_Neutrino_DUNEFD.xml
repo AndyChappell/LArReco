@@ -582,9 +582,15 @@
             <tool type = "LArBranchAssociatedPfos"/>
         </PfoRelationTools>
     </algorithm>
-    
+
+    <!-- Identify PFOs missing 3D hits or missing a view -->
+    <algorithm type = "LArIncompletePfo">
+        <PfoListNames>NeutrinoParticles3D TrackParticles3D ShowerParticles3D</PfoListNames>
+        <ClusterListNames>TrackClusters3D ShowerClusters3D</ClusterListNames>
+        <CaloHitListNames>TrackCaloHits3D ShowerCaloHits3D</CaloHitListNames>
+    </algorithm>
+
     <!-- Identify clusters not in PFOs, and rerun on those clusters without streaming -->
-    
     <algorithm type = "LArLeftoverCluster">
         <ClusterListNames>TrackClustersU TrackClustersV TrackClustersW</ClusterListNames>
         <OutputClusterListNames>ClustersU ClustersV ClustersW</OutputClusterListNames>
@@ -593,11 +599,6 @@
     <algorithm type = "LArLeftoverCluster">
         <ClusterListNames>ShowerClustersU ShowerClustersV ShowerClustersW</ClusterListNames>
         <OutputClusterListNames>ClustersU ClustersV ClustersW</OutputClusterListNames>
-    </algorithm>
-
-    <algorithm type = "LArVisualMonitoring">
-        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
-        <ShowDetector>true</ShowDetector>
     </algorithm>
 
     <algorithm type = "LArCutClusterCharacterisation">
