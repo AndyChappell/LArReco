@@ -532,23 +532,23 @@
         <MopUpAlgorithms>
             <algorithm type = "LArBoundedClusterMopUp">
                 <PfoListNames>ShowerParticles3D</PfoListNames>
-                <DaughterListNames>ShowerClustersU ShowerClustersV ShowerClustersW</DaughterListNames>
+                <DaughterListNames>ShowerClustersU ShowerClustersV ShowerClustersW TrackClustersU TrackClustersV TrackClustersW</DaughterListNames>
             </algorithm>
             <algorithm type = "LArConeClusterMopUp">
                 <PfoListNames>ShowerParticles3D</PfoListNames>
-                <DaughterListNames>ShowerClustersU ShowerClustersV ShowerClustersW</DaughterListNames>
+                <DaughterListNames>ShowerClustersU ShowerClustersV ShowerClustersW TrackClustersU TrackClustersV TrackClustersW</DaughterListNames>
             </algorithm>
             <algorithm type = "LArNearbyClusterMopUp">
                 <PfoListNames>ShowerParticles3D</PfoListNames>
-                <DaughterListNames>ShowerClustersU ShowerClustersV ShowerClustersW</DaughterListNames>
+                <DaughterListNames>ShowerClustersU ShowerClustersV ShowerClustersW TrackClustersU TrackClustersV TrackClustersW</DaughterListNames>
             </algorithm>
             <algorithm type = "LArSlidingConePfoMopUp">
                 <InputPfoListNames>ShowerParticles3D</InputPfoListNames>
-                <DaughterListNames>ShowerClustersU ShowerClustersV ShowerClustersW ShowerClusters3D</DaughterListNames>
+                <DaughterListNames>ShowerClustersU ShowerClustersV ShowerClustersW ShowerClusters3D TrackClustersU TrackClustersV TrackClustersW  TrackClusters3D</DaughterListNames>
             </algorithm>
             <algorithm type = "LArSlidingConeClusterMopUp">
                 <InputPfoListNames>ShowerParticles3D</InputPfoListNames>
-                <DaughterListNames>ShowerClustersU ShowerClustersV ShowerClustersW</DaughterListNames>
+                <DaughterListNames>ShowerClustersU ShowerClustersV ShowerClustersW TrackClustersU TrackClustersV TrackClustersW</DaughterListNames>
             </algorithm>
             <algorithm type = "LArPfoHitCleaning">
                 <PfoListNames>ShowerParticles3D</PfoListNames>
