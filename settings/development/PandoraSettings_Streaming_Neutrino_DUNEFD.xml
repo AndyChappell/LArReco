@@ -591,7 +591,7 @@
     </algorithm>
 
     <!-- Identify clusters not in PFOs, and rerun on those clusters without streaming -->
-    <algorithm type = "LArLeftoverCluster">
+    <!--algorithm type = "LArLeftoverCluster">
         <ClusterListNames>TrackClustersU TrackClustersV TrackClustersW</ClusterListNames>
         <OutputClusterListNames>ClustersU ClustersV ClustersW</OutputClusterListNames>
     </algorithm>
@@ -599,7 +599,7 @@
     <algorithm type = "LArLeftoverCluster">
         <ClusterListNames>ShowerClustersU ShowerClustersV ShowerClustersW</ClusterListNames>
         <OutputClusterListNames>ClustersU ClustersV ClustersW</OutputClusterListNames>
-    </algorithm>
+    </algorithm-->
 
     <algorithm type = "LArCutClusterCharacterisation">
         <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
