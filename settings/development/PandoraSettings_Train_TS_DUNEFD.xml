@@ -6,6 +6,8 @@
 
     <!-- ALGORITHM SETTINGS -->
     <algorithm type = "LArEventReading">
+        <ShouldReadEvents>true</ShouldReadEvents>
+        <ShouldReadGeometry>true</ShouldReadGeometry>
         <LArMCParticleVersion>2</LArMCParticleVersion>
     </algorithm>
     <algorithm type = "LArPreProcessing">
@@ -15,10 +17,10 @@
         <FilteredCaloHitListName>CaloHitList2D</FilteredCaloHitListName>
         <CurrentCaloHitListReplacement>CaloHitList2D</CurrentCaloHitListReplacement>
     </algorithm>
-    <algorithm type = "LArVisualMonitoring">
+    <!--algorithm type = "LArVisualMonitoring">
         <CaloHitListNames>CaloHitListU CaloHitListV CaloHitListW</CaloHitListNames>
         <ShowDetector>true</ShowDetector>
-    </algorithm>
+    </algorithm-->
 
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArCheatingPartialClusterCreation" description = "ClusterFormation">
@@ -116,6 +118,18 @@
         <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
     </algorithm>
     <algorithm type = "LArHitWidthClusterMerging"/>
+
+    <algorithm type = "LArVisualParticleMonitoring">
+        <CaloHitList2D>CaloHitList2D</CaloHitList2D>
+        <VisualizeMC>true</VisualizeMC>
+    </algorithm>
+    
+    <algorithm type = "LArHitTruthTagging">
+        <NonMuonClusterListNames>ClustersU ClustersV ClustersW</NonMuonClusterListNames>
+        <MuonClusterListNames>ClustersMuU ClustersMuV ClustersMuW</MuonClusterListNames>
+        <OutputFileName>DUNEFD_TrackShower_Truth_Test</OutputFileName>
+        <Visualize>true</Visualize>
+    </algorithm>
 
     <algorithm type = "LArVisualMonitoring">
         <ClusterListNames>ClustersU ClustersV ClustersW ClustersMuU ClustersMuV ClustersMuW</ClusterListNames>

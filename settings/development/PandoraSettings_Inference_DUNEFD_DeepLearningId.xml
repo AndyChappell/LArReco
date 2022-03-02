@@ -24,14 +24,115 @@
         <NumberOfBins>1024</NumberOfBins>
         <UseTrainingMode>false</UseTrainingMode>
         <TrainingOutputFileName>DUNEFD_MC11</TrainingOutputFileName>
-        <ModelFileNameU>PandoraNetworkData/PandoraUnet_TSID_DUNEFD_U_v03_25_00.pt</ModelFileNameU>
-        <ModelFileNameV>PandoraNetworkData/PandoraUnet_TSID_DUNEFD_V_v03_25_00.pt</ModelFileNameV>
-        <ModelFileNameW>PandoraNetworkData/PandoraUnet_TSID_DUNEFD_W_v03_25_00.pt</ModelFileNameW>
+        <ModelFileNameU>PandoraNetworkData/PandoraUnet_TSID_DUNEFD_U_Script_14.pt</ModelFileNameU>
+        <ModelFileNameV>PandoraNetworkData/PandoraUnet_TSID_DUNEFD_V_Script_11.pt</ModelFileNameV>
+        <ModelFileNameW>PandoraNetworkData/PandoraUnet_TSID_DUNEFD_W_Script_12.pt</ModelFileNameW>
         <Visualize>false</Visualize>
     </algorithm>
+
+    <algorithm type = "LArClusteringParent">
+        <algorithm type = "LArCheatingPartialClusterCreation" description = "ClusterFormation">
+            <PdgExclusionList>13 -13</PdgExclusionList>
+        </algorithm>
+        <InputCaloHitListName>CaloHitListU</InputCaloHitListName>
+        <ClusterListName>ClustersU</ClusterListName>
+        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
+        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
+    </algorithm>
+
+    <algorithm type = "LArClusteringParent">
+        <algorithm type = "LArCheatingPartialClusterCreation" description = "ClusterFormation">
+            <PdgExclusionList>13 -13</PdgExclusionList>
+        </algorithm>
+        <InputCaloHitListName>CaloHitListV</InputCaloHitListName>
+        <ClusterListName>ClustersV</ClusterListName>
+        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
+        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
+    </algorithm>
+
+    <algorithm type = "LArClusteringParent">
+        <algorithm type = "LArCheatingPartialClusterCreation" description = "ClusterFormation">
+            <PdgExclusionList>13 -13</PdgExclusionList>
+        </algorithm>
+        <InputCaloHitListName>CaloHitListW</InputCaloHitListName>
+        <ClusterListName>ClustersW</ClusterListName>
+        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
+        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
+    </algorithm>
+
+    <!-- Run standard reconstruction on the leftover muon hits -->
+    <algorithm type = "LArClusteringParent">
+        <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
+        <InputCaloHitListName>CaloHitListU</InputCaloHitListName>
+        <ClusterListName>ClustersMuU</ClusterListName>
+        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
+        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
+    </algorithm>
+    <algorithm type = "LArLayerSplitting"/>
+    <algorithm type = "LArLongitudinalAssociation"/>
+    <algorithm type = "LArTransverseAssociation"/>
+    <algorithm type = "LArLongitudinalExtension"/>
+    <algorithm type = "LArTransverseExtension"/>
+    <algorithm type = "LArCrossGapsAssociation"/>
+    <algorithm type = "LArCrossGapsExtension"/>
+    <algorithm type = "LArOvershootSplitting"/>
+    <algorithm type = "LArBranchSplitting"/>
+    <algorithm type = "LArKinkSplitting"/>
+    <algorithm type = "LArTrackConsolidation">
+        <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
+    </algorithm>
+    <algorithm type = "LArHitWidthClusterMerging"/>
+
+    <algorithm type = "LArClusteringParent">
+        <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
+        <InputCaloHitListName>CaloHitListV</InputCaloHitListName>
+        <ClusterListName>ClustersMuV</ClusterListName>
+        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
+        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
+    </algorithm>
+    <algorithm type = "LArLayerSplitting"/>
+    <algorithm type = "LArLongitudinalAssociation"/>
+    <algorithm type = "LArTransverseAssociation"/>
+    <algorithm type = "LArLongitudinalExtension"/>
+    <algorithm type = "LArTransverseExtension"/>
+    <algorithm type = "LArCrossGapsAssociation"/>
+    <algorithm type = "LArCrossGapsExtension"/>
+    <algorithm type = "LArOvershootSplitting"/>
+    <algorithm type = "LArBranchSplitting"/>
+    <algorithm type = "LArKinkSplitting"/>
+    <algorithm type = "LArTrackConsolidation">
+        <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
+    </algorithm>
+    <algorithm type = "LArHitWidthClusterMerging"/>
+
+    <algorithm type = "LArClusteringParent">
+        <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
+        <InputCaloHitListName>CaloHitListW</InputCaloHitListName>
+        <ClusterListName>ClustersMuW</ClusterListName>
+        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
+        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
+    </algorithm>
+    <algorithm type = "LArLayerSplitting"/>
+    <algorithm type = "LArLongitudinalAssociation"/>
+    <algorithm type = "LArTransverseAssociation"/>
+    <algorithm type = "LArLongitudinalExtension"/>
+    <algorithm type = "LArTransverseExtension"/>
+    <algorithm type = "LArCrossGapsAssociation"/>
+    <algorithm type = "LArCrossGapsExtension"/>
+    <algorithm type = "LArOvershootSplitting"/>
+    <algorithm type = "LArBranchSplitting"/>
+    <algorithm type = "LArKinkSplitting"/>
+    <algorithm type = "LArTrackConsolidation">
+        <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
+    </algorithm>
+    <algorithm type = "LArHitWidthClusterMerging"/>
     
-    <algorithm type = "LArDLHitValidation">
-        <CaloHitListNames>CaloHitListW CaloHitListU CaloHitListV</CaloHitListNames>
+    <algorithm type = "LArHitTruthTagging">
+        <NonMuonClusterListNames>ClustersU ClustersV ClustersW</NonMuonClusterListNames>
+        <MuonClusterListNames>ClustersMuU ClustersMuV ClustersMuW</MuonClusterListNames>
+        <OutputFileName>DUNEFD_TrackShower_Truth_Test</OutputFileName>
+        <Visualize>false</Visualize>
+        <Validate>true</Validate>
     </algorithm>
 
 </pandora>
