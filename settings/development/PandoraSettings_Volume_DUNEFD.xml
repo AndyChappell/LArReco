@@ -17,16 +17,8 @@
         <CurrentCaloHitListReplacement>CaloHitList2D</CurrentCaloHitListReplacement>
     </algorithm>
 
-    <algorithm type = "LArClusterTraining" />
-
-    <algorithm type = "LArVisualMonitoring">
-        <CaloHitListNames>CaloHitListU_0_1_1 CaloHitListU_0_1_5 CaloHitListU_0_1_9 CaloHitListU_0_1_13</CaloHitListNames>
-        <ShowDetector>true</ShowDetector>
-    </algorithm>
-
-    <algorithm type = "LArVisualMonitoring">
-        <CaloHitListNames>CaloHitListV_0_1_1 CaloHitListV_0_1_5 CaloHitListV_0_1_9 CaloHitListV_0_1_13</CaloHitListNames>
-        <ShowDetector>true</ShowDetector>
+    <algorithm type = "LArClusterTraining">
+        <Initialise>true</Initialise>
     </algorithm>
 
     <algorithm type = "LArVisualMonitoring">
@@ -34,41 +26,27 @@
         <ShowDetector>true</ShowDetector>
     </algorithm>
     
-    <algorithm type = "LArClusteringParent">
-        <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
-        <InputCaloHitListName>CaloHitListW_0_1_1</InputCaloHitListName>
-        <ClusterListName>ClustersW_0_1_1</ClusterListName>
-        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
-        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
-    </algorithm>
-
-    <algorithm type = "LArClusteringParent">
-        <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
-        <InputCaloHitListName>CaloHitListW_0_1_5</InputCaloHitListName>
-        <ClusterListName>ClustersW_0_1_5</ClusterListName>
-        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
-        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
-    </algorithm>
-
-    <algorithm type = "LArClusteringParent">
-        <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
-        <InputCaloHitListName>CaloHitListW_0_1_9</InputCaloHitListName>
-        <ClusterListName>ClustersW_0_1_9</ClusterListName>
-        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
-        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
-    </algorithm>
-
-    <algorithm type = "LArClusteringParent">
-        <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
-        <InputCaloHitListName>CaloHitListW_0_1_13</InputCaloHitListName>
-        <ClusterListName>ClustersW_0_1_13</ClusterListName>
-        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
-        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
+    <algorithm type = "LArTpcVolumeIterator">
+        <InputCaloHitListPrefix>CaloHitList</InputCaloHitListPrefix>
+        <IntermediateClusterListName>TempClusters</IntermediateClusterListName>
+        <OutputClusterListPrefix>Clusters</OutputClusterListPrefix>
+        <ViewList>U V W</ViewList>
+        <CryoStatList>0</CryoStatList>
+        <TpcList>1</TpcList>
+        <TpcChildVolumeList>1 5 9 13</TpcChildVolumeList>
+        <algorithm type = "LArClusteringParent" description = "ClusteringWrapper">
+            <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
+            <ClusterListName>TempClusters</ClusterListName>
+            <ReplaceCurrentCaloHitList>false</ReplaceCurrentCaloHitList>
+            <ReplaceCurrentClusterList>false</ReplaceCurrentClusterList>
+        </algorithm>
     </algorithm>
 
     <algorithm type = "LArVisualMonitoring">
-        <ClusterListNames>ClustersW_0_1_1 ClustersW_0_1_5 ClustersW_0_1_9 ClustersW_0_1_13</ClusterListNames>
+        <ClusterListNames>ClustersW_0_1_1 ClustersW_0_1_5 ClustersW_0_1_9 ClustersW_0_1_13 Clusters</ClusterListNames>
         <ShowDetector>true</ShowDetector>
     </algorithm>
-        
+
+    <algorithm type = "LArClusterTraining">
+    </algorithm>
 </pandora>
