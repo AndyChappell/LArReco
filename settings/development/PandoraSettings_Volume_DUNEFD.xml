@@ -43,10 +43,11 @@
     </algorithm>
 
     <algorithm type = "LArVisualMonitoring">
-        <ClusterListNames>ClustersW_0_1_1 ClustersW_0_1_5 ClustersW_0_1_9 ClustersW_0_1_13 Clusters</ClusterListNames>
+        <ClusterListNames>ClustersW_0_1_1 ClustersW_0_1_5 ClustersW_0_1_9 ClustersW_0_1_13</ClusterListNames>
         <ShowDetector>true</ShowDetector>
     </algorithm>
 
     <algorithm type = "LArClusterTraining">
+        <TrainingFilename>ClusterPairs.csv</TrainingFilename>
     </algorithm>
 </pandora>
