@@ -21,6 +21,7 @@
         <ShowDetector>true</ShowDetector>
     </algorithm>
     <algorithm type = "LArMyClustering">
+        <CaloHitListNames>CaloHitListU CaloHitListV CaloHitListW</CaloHitListNames>
     </algorithm>
     <algorithm type = "LArVisualMonitoring">
         <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
