@@ -27,4 +27,20 @@
         <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
         <ShowDetector>true</ShowDetector>
     </algorithm>
+    <algorithm type = "LArMyClusterMerging">
+        <InputClusterListName>ClustersU</InputClusterListName>
+        <MaxClusterSeparation>5</MaxClusterSeparation>
+    </algorithm>
+    <algorithm type = "LArMyClusterMerging">
+        <InputClusterListName>ClustersV</InputClusterListName>
+        <MaxClusterSeparation>5</MaxClusterSeparation>
+    </algorithm>
+    <algorithm type = "LArMyClusterMerging">
+        <InputClusterListName>ClustersW</InputClusterListName>
+        <MaxClusterSeparation>5</MaxClusterSeparation>
+    </algorithm>
+    <algorithm type = "LArVisualMonitoring">
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
+        <ShowDetector>true</ShowDetector>
+    </algorithm>
 </pandora>
