@@ -285,6 +285,7 @@
     </algorithm>
     <algorithm type = "LArShowerGrowing">
         <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
+        <MaxAssocHitRatio>0.75</MaxAssocHitRatio>
     </algorithm>
     <algorithm type = "LArThreeDShowers">
         <InputClusterListNameU>ClustersU</InputClusterListNameU>
@@ -579,10 +580,11 @@
     <algorithm type = "LArSlidingConePfoMopUp">
         <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
         <DaughterListNames>ClustersU ClustersV ClustersW TrackClusters3D ShowerClusters3D</DaughterListNames>
-        <ConeTanHalfAngle1>0.3</ConeTanHalfAngle1>
-        <ConeTanHalfAngle2>0.3</ConeTanHalfAngle2>
+        <ConeTanHalfAngle1>0.15</ConeTanHalfAngle1>
+        <ConeTanHalfAngle2>0.2</ConeTanHalfAngle2>
         <LegacyMode>false</LegacyMode>
-        <ConeBoundedFraction1>0.7</ConeBoundedFraction1>
+        <ConeBoundedFraction1>0.6</ConeBoundedFraction1>
+        <ConeBoundedFraction2>0.8</ConeBoundedFraction2>
     </algorithm>
     <algorithm type = "LArSlidingConeClusterMopUp">
         <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
@@ -651,10 +653,11 @@
             <algorithm type = "LArSlidingConePfoMopUp">
                 <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
                 <DaughterListNames>ClustersU ClustersV ClustersW TrackClusters3D ShowerClusters3D</DaughterListNames>
-                <ConeTanHalfAngle1>0.3</ConeTanHalfAngle1>
-                <ConeTanHalfAngle2>0.3</ConeTanHalfAngle2>
+                <ConeTanHalfAngle1>0.15</ConeTanHalfAngle1>
+                <ConeTanHalfAngle2>0.20</ConeTanHalfAngle2>
                 <LegacyMode>false</LegacyMode>
-                <ConeBoundedFraction1>0.7</ConeBoundedFraction1>
+                <ConeBoundedFraction1>0.6</ConeBoundedFraction1>
+                <ConeBoundedFraction2>0.8</ConeBoundedFraction2>
             </algorithm>
             <algorithm type = "LArSlidingConeClusterMopUp">
                 <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
