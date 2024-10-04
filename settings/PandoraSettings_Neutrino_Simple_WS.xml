@@ -234,10 +234,10 @@
         <VertexListName>DaughterVertices3D</VertexListName>
     </algorithm>
 
-        <algorithm type = "LArVisualMonitoring">
-                <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
-                <ShowDetector>true</ShowDetector>
-        </algorithm>
+    <algorithm type = "LArVisualMonitoring">
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
+        <ShowDetector>true</ShowDetector>
+    </algorithm>
 
     <!-- Output list management -->
     <algorithm type = "LArPostProcessing">
