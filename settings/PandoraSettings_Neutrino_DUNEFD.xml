@@ -48,29 +48,43 @@
         <ModelFileNameW>PandoraNetworkData/PandoraNet_SecVertex_DUNEFD_Accel_1_W.pt</ModelFileNameW>
         <DistanceThresholds>0. 0.00275 0.00825 0.01925 0.03575 0.05775 0.08525 0.12375 0.15125 0.20625 0.26125 0.31625 0.37125 0.42625 0.50875 0.59125 0.67375 0.75625 0.85 1.0</DistanceThresholds>
     </algorithm>
+    <algorithm type="LArVertexRefinement">
+        <InputVertexListName>SecondaryVertices3D</InputVertexListName>
+        <OutputVertexListName>RefinedSecondaryVertices3D</OutputVertexListName>
+    </algorithm>
+    <!--algorithm type = "LArCheatingSecondaryVertex">
+        <OutputVertexListName>SecondaryVertices3D</OutputVertexListName>
+        <CaloHitListName>CaloHitList2D</CaloHitListName>
+    </algorithm-->
+
+    <!--algorithm type = "LArVisualMonitoring">
+        <CaloHitListNames>CaloHitListW</CaloHitListNames>
+        <VertexListNames>RefinedSecondaryVertices3D</VertexListNames>
+    </algorithm-->
+
     <algorithm type = "LArVertexAssociatedHit">
         <CaloHitListName>CaloHitListU</CaloHitListName>
-        <VertexListName>SecondaryVertices3D</VertexListName>
-        <VetoedHitListName>VetoedHitsU</VetoedHitListName>
-        <RetainedHitListName>RetainedHitsU</RetainedHitListName>
+        <VertexListName>RefinedSecondaryVertices3D</VertexListName>
+        <VetoedHitListName>VertexHitsU</VetoedHitListName>
+        <RetainedHitListName>NonVertexHitsU</RetainedHitListName>
     </algorithm>
     <algorithm type = "LArVertexAssociatedHit">
         <CaloHitListName>CaloHitListV</CaloHitListName>
-        <VertexListName>SecondaryVertices3D</VertexListName>
-        <VetoedHitListName>VetoedHitsV</VetoedHitListName>
-        <RetainedHitListName>RetainedHitsV</RetainedHitListName>
+        <VertexListName>RefinedSecondaryVertices3D</VertexListName>
+        <VetoedHitListName>VertexHitsV</VetoedHitListName>
+        <RetainedHitListName>NonVertexHitsV</RetainedHitListName>
     </algorithm>
     <algorithm type = "LArVertexAssociatedHit">
         <CaloHitListName>CaloHitListW</CaloHitListName>
-        <VertexListName>SecondaryVertices3D</VertexListName>
-        <VetoedHitListName>VetoedHitsW</VetoedHitListName>
-        <RetainedHitListName>RetainedHitsW</RetainedHitListName>
+        <VertexListName>RefinedSecondaryVertices3D</VertexListName>
+        <VetoedHitListName>VertexHitsW</VetoedHitListName>
+        <RetainedHitListName>NonVertexHitsW</RetainedHitListName>
     </algorithm>
 
     <!-- TwoDReconstruction -->
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
-        <InputCaloHitListName>RetainedHitsU</InputCaloHitListName>
+        <InputCaloHitListName>NonVertexHitsU</InputCaloHitListName>
         <ClusterListName>ClustersU</ClusterListName>
         <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
         <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
@@ -89,9 +103,6 @@
         <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
     </algorithm>
     <algorithm type = "LArHitWidthClusterMerging"/>
-    <algorithm type = "LArVertexHitAssociation">
-        <CaloHitListName>VetoedHitsU</CaloHitListName>
-    </algorithm>
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
         <InputCaloHitListName>CaloHitListU</InputCaloHitListName>
@@ -114,9 +125,16 @@
     </algorithm>
     <algorithm type = "LArHitWidthClusterMerging"/>
 
+    <!--algorithm type = "LArDLVertexAssociatedCluster">
+        <ClusterListName>ClustersU</ClusterListName>
+        <VertexListName>SecondaryVertices3D</VertexListName>
+        <TrainingMode>false</TrainingMode>
+        <ModelFileName>PandoraNetworkData/PandoraNet_Assess_DUNEFD_HD_Accel_U.pt</ModelFileName>
+    </algorithm-->
+
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
-        <InputCaloHitListName>RetainedHitsV</InputCaloHitListName>
+        <InputCaloHitListName>NonVertexHitsV</InputCaloHitListName>
         <ClusterListName>ClustersV</ClusterListName>
         <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
         <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
@@ -135,9 +153,6 @@
         <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
     </algorithm>
     <algorithm type = "LArHitWidthClusterMerging"/>
-    <algorithm type = "LArVertexHitAssociation">
-        <CaloHitListName>VetoedHitsV</CaloHitListName>
-    </algorithm>
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
         <InputCaloHitListName>CaloHitListV</InputCaloHitListName>
@@ -160,9 +175,16 @@
     </algorithm>
     <algorithm type = "LArHitWidthClusterMerging"/>
 
+    <!--algorithm type = "LArDLVertexAssociatedCluster">
+        <ClusterListName>ClustersV</ClusterListName>
+        <VertexListName>SecondaryVertices3D</VertexListName>
+        <TrainingMode>false</TrainingMode>
+        <ModelFileName>PandoraNetworkData/PandoraNet_Assess_DUNEFD_HD_Accel_V.pt</ModelFileName>
+    </algorithm-->
+
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
-        <InputCaloHitListName>RetainedHitsW</InputCaloHitListName>
+        <InputCaloHitListName>NonVertexHitsW</InputCaloHitListName>
         <ClusterListName>ClustersW</ClusterListName>
         <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
         <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
@@ -181,9 +203,12 @@
         <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
     </algorithm>
     <algorithm type = "LArHitWidthClusterMerging"/>
-    <algorithm type = "LArVertexHitAssociation">
-        <CaloHitListName>VetoedHitsW</CaloHitListName>
+
+    <algorithm type = "LArVisualMonitoring">
+        <ClusterListNames>ClustersW</ClusterListNames>
+        <VertexListNames>RefinedSecondaryVertices3D</VertexListNames>
     </algorithm>
+
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
         <InputCaloHitListName>CaloHitListW</InputCaloHitListName>
@@ -205,6 +230,17 @@
         <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
     </algorithm>
     <algorithm type = "LArHitWidthClusterMerging"/>
+
+    <algorithm type = "LArVisualMonitoring">
+        <ClusterListNames>ClustersW</ClusterListNames>
+        <VertexListNames>RefinedSecondaryVertices3D</VertexListNames>
+    </algorithm>
+    <!--algorithm type = "LArDLVertexAssociatedCluster">
+        <ClusterListName>ClustersW</ClusterListName>
+        <VertexListName>SecondaryVertices3D</VertexListName>
+        <TrainingMode>false</TrainingMode>
+        <ModelFileName>PandoraNetworkData/PandoraNet_Assess_DUNEFD_HD_Accel_W.pt</ModelFileName>
+    </algorithm-->
 
     <!-- VertexAlgorithms -->
     <algorithm type = "LArCutClusterCharacterisation">
@@ -583,8 +619,8 @@
         <ConeTanHalfAngle1>0.15</ConeTanHalfAngle1>
         <ConeTanHalfAngle2>0.2</ConeTanHalfAngle2>
         <LegacyMode>false</LegacyMode>
-        <ConeBoundedFraction1>0.6</ConeBoundedFraction1>
-        <ConeBoundedFraction2>0.8</ConeBoundedFraction2>
+        <ConeBoundedFraction1>0.75</ConeBoundedFraction1>
+        <ConeBoundedFraction2>0.9</ConeBoundedFraction2>
     </algorithm>
     <algorithm type = "LArSlidingConeClusterMopUp">
         <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
@@ -656,8 +692,8 @@
                 <ConeTanHalfAngle1>0.15</ConeTanHalfAngle1>
                 <ConeTanHalfAngle2>0.20</ConeTanHalfAngle2>
                 <LegacyMode>false</LegacyMode>
-                <ConeBoundedFraction1>0.6</ConeBoundedFraction1>
-                <ConeBoundedFraction2>0.8</ConeBoundedFraction2>
+                <ConeBoundedFraction1>0.75</ConeBoundedFraction1>
+                <ConeBoundedFraction2>0.9</ConeBoundedFraction2>
             </algorithm>
             <algorithm type = "LArSlidingConeClusterMopUp">
                 <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
@@ -766,10 +802,14 @@
         <VertexListName>DaughterVertices3D</VertexListName>
     </algorithm>
 
+    <!--algorithm type = "LArVisualMonitoring">
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
+    </algorithm-->
+
     <!-- Output list management -->
     <algorithm type = "LArPostProcessing">
         <PfoListNames>NeutrinoParticles3D TrackParticles3D ShowerParticles3D</PfoListNames>
-        <VertexListNames>NeutrinoVertices3D DaughterVertices3D CandidateVertices3D</VertexListNames>
+        <VertexListNames>NeutrinoVertices3D DaughterVertices3D CandidateVertices3D SecondaryVertices3D</VertexListNames>
         <ClusterListNames>ClustersU ClustersV ClustersW TrackClusters3D ShowerClusters3D</ClusterListNames>
         <CaloHitListNames>CaloHitListU CaloHitListV CaloHitListW CaloHitList2D</CaloHitListNames>
         <CurrentPfoListReplacement>NeutrinoParticles3D</CurrentPfoListReplacement>
