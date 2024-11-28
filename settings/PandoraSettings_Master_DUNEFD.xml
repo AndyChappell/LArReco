@@ -36,24 +36,39 @@
         </SliceIdTools>
         <InputHitListName>CaloHitList2D</InputHitListName>
         <InputMCParticleListName>Input</InputMCParticleListName>
-        <PassMCParticlesToWorkerInstances>false</PassMCParticlesToWorkerInstances>
+        <PassMCParticlesToWorkerInstances>true</PassMCParticlesToWorkerInstances>
         <RecreatedPfoListName>RecreatedPfos</RecreatedPfoListName>
         <RecreatedClusterListName>RecreatedClusters</RecreatedClusterListName>
         <RecreatedVertexListName>RecreatedVertices</RecreatedVertexListName>
         <VisualizeOverallRecoStatus>false</VisualizeOverallRecoStatus>
     </algorithm>
 
-    <algorithm type = "LArNeutrinoEventValidation">
+    <algorithm type = "LArHierarchyValidation">
         <CaloHitListName>CaloHitList2D</CaloHitListName>
-        <MCParticleListName>Input</MCParticleListName>
         <PfoListName>RecreatedPfos</PfoListName>
-        <UseTrueNeutrinosOnly>false</UseTrueNeutrinosOnly>
-        <PrintAllToScreen>false</PrintAllToScreen>
-        <PrintMatchingToScreen>true</PrintMatchingToScreen>
-        <WriteToTree>false</WriteToTree>
-        <OutputTree>Validation</OutputTree>
-        <OutputFile>Validation.root</OutputFile>
+        <ValidateEvent>true</ValidateEvent>
+        <WriteTree>true</WriteTree>
+        <FileName>validation_event.root</FileName>
+        <TreeName>event</TreeName>
+        <FoldToPrimaries>true</FoldToPrimaries>
     </algorithm>
+
+    <algorithm type = "LArHierarchyValidation">
+        <CaloHitListName>CaloHitList2D</CaloHitListName>
+        <PfoListName>RecreatedPfos</PfoListName>
+        <ValidateMC>true</ValidateMC>
+        <WriteTree>true</WriteTree>
+        <FileName>validation_mc.root</FileName>
+        <TreeName>mc</TreeName>
+        <FoldToPrimaries>true</FoldToPrimaries>
+    </algorithm>
+
+    <!--algorithm type = "LArVertexMonitoring">
+        <WriteFile>true</WriteFile>
+        <Filename>vertices_hd_dl.root</Filename>
+        <Treename>vertices</Treename>
+        <Visualize>true</Visualize>
+    </algorithm-->
 
     <algorithm type = "LArVisualMonitoring">
         <ShowCurrentPfos>true</ShowCurrentPfos>
