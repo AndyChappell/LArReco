@@ -50,6 +50,11 @@
         <Visualise>false</Visualise>
     </algorithm>
 
+    <algorithm type = "LArVisualMonitoring">
+        <CaloHitListNames>CaloHitListW</CaloHitListNames>
+        <VertexListNames>SecondaryVertices3D</VertexListNames>
+    </algorithm>
+
     <!-- TwoDReconstruction -->
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
