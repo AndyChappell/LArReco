@@ -50,7 +50,90 @@
         <Visualise>false</Visualise>
     </algorithm>
 
+    <!--algorithm type = "LArVertexMonitoring">
+        <WriteFile>true</WriteFile>
+        <Filename>vertices_sec.root</Filename>
+        <Treename>vertices</Treename>
+        <UseSecondaries>true</UseSecondaries>
+        <SecondaryVertexListName>SecondaryVertices3D</SecondaryVertexListName>
+        <Visualize>false</Visualize>
+    </algorithm-->
+
+    <!--algorithm type="LArVertexRefinement">
+        <InputVertexListName>NeutrinoVertices3D</InputVertexListName>
+        <OutputVertexListName>NeutrinoVertices3D</OutputVertexListName>
+        <PrimaryVertexListName>NeutrinoVertices3D</PrimaryVertexListName>
+        <VetoPrimaryRegion>false</VetoPrimaryRegion>
+    </algorithm-->
+
+    <algorithm type="LArVertexRefinement">
+        <InputVertexListName>SecondaryVertices3D</InputVertexListName>
+        <OutputVertexListName>RefinedSecondaryVertices3D</OutputVertexListName>
+        <PrimaryVertexListName>NeutrinoVertices3D</PrimaryVertexListName>
+        <VetoPrimaryRegion>false</VetoPrimaryRegion>
+    </algorithm>
+
+    <!--algorithm type = "LArVertexMonitoring">
+        <WriteFile>true</WriteFile>
+        <Filename>vertices_sec_refine.root</Filename>
+        <Treename>vertices_refine</Treename>
+        <UseSecondaries>true</UseSecondaries>
+        <SecondaryVertexListName>RefinedSecondaryVertices3D</SecondaryVertexListName>
+        <Visualize>false</Visualize>
+    </algorithm-->
+
+    <!--algorithm type = "LArCheatingSecondaryVertex">
+        <OutputVertexListName>SecondaryVertices3D</OutputVertexListName>
+        <CaloHitListName>CaloHitList2D</CaloHitListName>
+    </algorithm-->
+
+    <algorithm type = "LArVertexAssociatedHit">
+        <CaloHitListName>CaloHitListU</CaloHitListName>
+        <VertexListName>RefinedSecondaryVertices3D</VertexListName>
+        <VetoedHitListName>VertexHitsU</VetoedHitListName>
+        <RetainedHitListName>NonVertexHitsU</RetainedHitListName>
+    </algorithm>
+    <algorithm type = "LArVertexAssociatedHit">
+        <CaloHitListName>CaloHitListV</CaloHitListName>
+        <VertexListName>RefinedSecondaryVertices3D</VertexListName>
+        <VetoedHitListName>VertexHitsV</VetoedHitListName>
+        <RetainedHitListName>NonVertexHitsV</RetainedHitListName>
+    </algorithm>
+    <algorithm type = "LArVertexAssociatedHit">
+        <CaloHitListName>CaloHitListW</CaloHitListName>
+        <VertexListName>RefinedSecondaryVertices3D</VertexListName>
+        <VetoedHitListName>VertexHitsW</VetoedHitListName>
+        <RetainedHitListName>NonVertexHitsW</RetainedHitListName>
+    </algorithm>
+
     <!-- TwoDReconstruction -->
+    <algorithm type = "LArClusteringParent">
+        <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
+        <InputCaloHitListName>NonVertexHitsU</InputCaloHitListName>
+        <ClusterListName>ClustersU</ClusterListName>
+        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
+        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
+    </algorithm>
+    <algorithm type = "LArLayerSplitting"/>
+    <algorithm type = "LArLongitudinalAssociation"/>
+    <algorithm type = "LArTransverseAssociation"/>
+    <algorithm type = "LArLongitudinalExtension"/>
+    <algorithm type = "LArTransverseExtension"/>
+    <algorithm type = "LArCrossGapsAssociation"/>
+    <algorithm type = "LArCrossGapsExtension"/>
+    <algorithm type = "LArOvershootSplitting"/>
+    <algorithm type = "LArBranchSplitting"/>
+    <algorithm type = "LArKinkSplitting"/>
+    <algorithm type = "LArTrackConsolidation">
+        <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
+    </algorithm>
+    <algorithm type = "LArHitWidthClusterMerging"/>
+
+    <algorithm type="LArVertexClusterCreation">
+        <CaloHitListName>VertexHitsU</CaloHitListName>
+        <VertexListName>RefinedSecondaryVertices3D</VertexListName>
+    </algorithm>
+
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
         <InputCaloHitListName>CaloHitListU</InputCaloHitListName>
@@ -72,6 +155,40 @@
         <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
     </algorithm>
     <algorithm type = "LArHitWidthClusterMerging"/>
+
+    <!--algorithm type = "LArDLVertexAssociatedCluster">
+        <ClusterListName>ClustersU</ClusterListName>
+        <VertexListName>SecondaryVertices3D</VertexListName>
+        <TrainingMode>false</TrainingMode>
+        <ModelFileName>PandoraNetworkData/PandoraNet_Assess_DUNEFD_HD_Accel_U.pt</ModelFileName>
+    </algorithm-->
+
+    <algorithm type = "LArClusteringParent">
+        <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
+        <InputCaloHitListName>NonVertexHitsV</InputCaloHitListName>
+        <ClusterListName>ClustersV</ClusterListName>
+        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
+        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
+    </algorithm>
+    <algorithm type = "LArLayerSplitting"/>
+    <algorithm type = "LArLongitudinalAssociation"/>
+    <algorithm type = "LArTransverseAssociation"/>
+    <algorithm type = "LArLongitudinalExtension"/>
+    <algorithm type = "LArTransverseExtension"/>
+    <algorithm type = "LArCrossGapsAssociation"/>
+    <algorithm type = "LArCrossGapsExtension"/>
+    <algorithm type = "LArOvershootSplitting"/>
+    <algorithm type = "LArBranchSplitting"/>
+    <algorithm type = "LArKinkSplitting"/>
+    <algorithm type = "LArTrackConsolidation">
+        <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
+    </algorithm>
+    <algorithm type = "LArHitWidthClusterMerging"/>
+
+    <algorithm type="LArVertexClusterCreation">
+        <CaloHitListName>VertexHitsV</CaloHitListName>
+        <VertexListName>RefinedSecondaryVertices3D</VertexListName>
+    </algorithm>
 
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
@@ -95,6 +212,40 @@
     </algorithm>
     <algorithm type = "LArHitWidthClusterMerging"/>
 
+    <!--algorithm type = "LArDLVertexAssociatedCluster">
+        <ClusterListName>ClustersV</ClusterListName>
+        <VertexListName>SecondaryVertices3D</VertexListName>
+        <TrainingMode>false</TrainingMode>
+        <ModelFileName>PandoraNetworkData/PandoraNet_Assess_DUNEFD_HD_Accel_V.pt</ModelFileName>
+    </algorithm-->
+
+    <algorithm type = "LArClusteringParent">
+        <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
+        <InputCaloHitListName>NonVertexHitsW</InputCaloHitListName>
+        <ClusterListName>ClustersW</ClusterListName>
+        <ReplaceCurrentCaloHitList>true</ReplaceCurrentCaloHitList>
+        <ReplaceCurrentClusterList>true</ReplaceCurrentClusterList>
+    </algorithm>
+    <algorithm type = "LArLayerSplitting"/>
+    <algorithm type = "LArLongitudinalAssociation"/>
+    <algorithm type = "LArTransverseAssociation"/>
+    <algorithm type = "LArLongitudinalExtension"/>
+    <algorithm type = "LArTransverseExtension"/>
+    <algorithm type = "LArCrossGapsAssociation"/>
+    <algorithm type = "LArCrossGapsExtension"/>
+    <algorithm type = "LArOvershootSplitting"/>
+    <algorithm type = "LArBranchSplitting"/>
+    <algorithm type = "LArKinkSplitting"/>
+    <algorithm type = "LArTrackConsolidation">
+        <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
+    </algorithm>
+    <algorithm type = "LArHitWidthClusterMerging"/>
+
+    <algorithm type="LArVertexClusterCreation">
+        <CaloHitListName>VertexHitsW</CaloHitListName>
+        <VertexListName>RefinedSecondaryVertices3D</VertexListName>
+    </algorithm>
+
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
         <InputCaloHitListName>CaloHitListW</InputCaloHitListName>
@@ -116,6 +267,13 @@
         <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
     </algorithm>
     <algorithm type = "LArHitWidthClusterMerging"/>
+
+    <!--algorithm type = "LArDLVertexAssociatedCluster">
+        <ClusterListName>ClustersW</ClusterListName>
+        <VertexListName>SecondaryVertices3D</VertexListName>
+        <TrainingMode>false</TrainingMode>
+        <ModelFileName>PandoraNetworkData/PandoraNet_Assess_DUNEFD_HD_Accel_W.pt</ModelFileName>
+    </algorithm-->
 
     <!-- VertexAlgorithms -->
     <algorithm type = "LArCutClusterCharacterisation">
@@ -196,6 +354,7 @@
     </algorithm>
     <algorithm type = "LArShowerGrowing">
         <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
+        <MaxAssocHitRatio>0.75</MaxAssocHitRatio>
     </algorithm>
     <algorithm type = "LArThreeDShowers">
         <InputClusterListNameU>ClustersU</InputClusterListNameU>
