@@ -13,6 +13,8 @@
         <CurrentCaloHitListReplacement>CaloHitList2D</CurrentCaloHitListReplacement>
     </algorithm>
 
+    <algorithm type = "LArPlaneSolver" />
+
     <algorithm type = "LArDLVertexing">
         <TrainingMode>false</TrainingMode>
         <OutputVertexListName>NeutrinoVertices3D_Pass1</OutputVertexListName>
@@ -468,15 +470,15 @@
     <algorithm type = "LArSlidingConePfoMopUp">
         <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
         <DaughterListNames>ClustersU ClustersV ClustersW TrackClusters3D ShowerClusters3D</DaughterListNames>
+        <ConeTanHalfAngle1>0.15</ConeTanHalfAngle1>
+        <ConeTanHalfAngle2>0.2</ConeTanHalfAngle2>
+        <LegacyMode>false</LegacyMode>
+        <ConeBoundedFraction1>0.75</ConeBoundedFraction1>
+        <ConeBoundedFraction2>0.9</ConeBoundedFraction2>
     </algorithm>
     <algorithm type = "LArSlidingConeClusterMopUp">
         <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
         <DaughterListNames>ClustersU ClustersV ClustersW</DaughterListNames>
-    </algorithm>
-    <algorithm type = "LArIsolatedClusterMopUp">
-        <PfoListNames>TrackParticles3D ShowerParticles3D</PfoListNames>
-        <DaughterListNames>ClustersU ClustersV ClustersW</DaughterListNames>
-        <AddHitsAsIsolated>true</AddHitsAsIsolated>
     </algorithm>
 
     <algorithm type = "LArBdtPfoCharacterisation">
@@ -536,6 +538,11 @@
             <algorithm type = "LArSlidingConePfoMopUp">
                 <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
                 <DaughterListNames>ClustersU ClustersV ClustersW TrackClusters3D ShowerClusters3D</DaughterListNames>
+                <ConeTanHalfAngle1>0.15</ConeTanHalfAngle1>
+                <ConeTanHalfAngle2>0.2</ConeTanHalfAngle2>
+                <LegacyMode>false</LegacyMode>
+                <ConeBoundedFraction1>0.75</ConeBoundedFraction1>
+                <ConeBoundedFraction2>0.9</ConeBoundedFraction2>
             </algorithm>
             <algorithm type = "LArSlidingConeClusterMopUp">
                 <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
@@ -570,6 +577,65 @@
                 </HitCreationTools>
             </algorithm>
         </MopUpAlgorithms>
+    </algorithm>
+
+    <algorithm type = "LArVisualMonitoring">
+        <CaloHitListNames>CaloHitListU CaloHitListV CaloHitListW</CaloHitListNames>
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
+        <VertexListNames>NeutrinoVertices3D DaughterVertices3D</VertexListNames>
+        <PfoListNames>TrackParticles3D ShowerParticles3D</PfoListNames>
+    </algorithm>
+
+    <algorithm type = "LArVisualMonitoring">
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
+    </algorithm>
+
+    <algorithm type = "LArShortTrackReclustering">
+        <CaloHitListName>CaloHitList2D</CaloHitListName>
+        <PfoListName>TrackParticles3D</PfoListName>
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
+    </algorithm>
+
+    <algorithm type = "LArPfoHitCleaning">
+        <PfoListNames>TrackParticles3D</PfoListNames>
+        <ClusterListNames>TrackClusters3D</ClusterListNames>
+    </algorithm>
+
+    <algorithm type = "LArVisualMonitoring">
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
+    </algorithm>
+
+    <algorithm type = "LArTrackRecovery">
+        <InputPfoListName>TrackParticles3D</InputPfoListName>
+        <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
+    </algorithm>
+
+    <algorithm type = "LArVisualMonitoring">
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
+    </algorithm>
+
+    <!--algorithm type = "LArTrackFill">
+        <InputPfoListName>TrackParticles3D</InputPfoListName>
+        <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
+    </algorithm-->
+
+    <algorithm type = "LArVisualMonitoring">
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
+    </algorithm>
+
+    <algorithm type = "LArThreeDHitCreation">
+        <InputPfoListName>TrackParticles3D</InputPfoListName>
+        <OutputCaloHitListName>TrackCaloHits3D</OutputCaloHitListName>
+        <OutputClusterListName>TrackClusters3D</OutputClusterListName>
+        <HitCreationTools>
+            <tool type = "LArClearTransverseTrackHits"><MinViews>3</MinViews></tool>
+            <tool type = "LArClearLongitudinalTrackHits"><MinViews>3</MinViews></tool>
+            <tool type = "LArMultiValuedLongitudinalTrackHits"><MinViews>3</MinViews></tool>
+            <tool type = "LArMultiValuedTransverseTrackHits"><MinViews>3</MinViews></tool>
+            <tool type = "LArClearTransverseTrackHits"><MinViews>2</MinViews></tool>
+            <tool type = "LArClearLongitudinalTrackHits"><MinViews>2</MinViews></tool>
+            <tool type = "LArMultiValuedLongitudinalTrackHits"><MinViews>2</MinViews></tool>
+        </HitCreationTools>
     </algorithm>
 
     <!-- Neutrino creation and hierarchy building -->
